@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="pragma" content="no-cache"> 
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
+<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+<title>Echarts12</title>
+<script type="text/javascript" src="resource/js/jquery.min.js"></script>
+<script type="text/javascript" src="resource/js/echart/echarts-all.js"></script>
+<script type="text/javascript">
+	var timeTicket;
+    $(function(){
+    	$("#main").css("width",getWinWidth());
+    	$("#main").css("height",getWinHeight());
+    	var heatData = [];
+    	for (var i = 0; i < 200; ++i) {
+    	    heatData.push([
+    	        100 + Math.random() * 20,
+    	        24 + Math.random() * 16,
+    	        Math.random()
+    	    ]);
+    	}
+    	for (var j = 0; j < 10; ++j) {
+    	    var x = 100 + Math.random() * 16;
+    	    var y = 24 + Math.random() * 12;
+    	    var cnt = 30 * Math.random();
+    	    for (var i = 0; i < cnt; ++i) {
+    	        heatData.push([
+    	            x + Math.random() * 2,
+    	            y + Math.random() * 2,
+    	            Math.random()
+    	        ]);
+    	    }
+    	}
+
+    	option = {
+    	    backgroundColor: '#1b1b1b',
+    	    title : {
+    	        text: '热力图结合地图',
+    	        x:'center',
+    	        textStyle: {
+    	            color: 'white'
+    	        }
+    	    },
+    	    tooltip : {
+    	        trigger: 'item',
+    	        formatter: '{b}'
+    	    },
+    	    toolbox: {
+    	        show : true,
+    	        orient : 'vertical',
+    	        x: 'right',
+    	        y: 'center',
+    	        feature : {
+    	            mark : {show: true},
+    	            dataView : {show: true, readOnly: false},
+    	            restore : {show: true},
+    	            saveAsImage : {show: true}
+    	        }
+    	    },
+    	    series : [
+    	        {
+    	            name: '北京',
+    	            type: 'map',
+    	            mapType: 'china',
+    	            roam: true,
+    	            hoverable: false,
+    	            data:[],
+    	            heatmap: {
+    	                minAlpha: 0.1,
+    	                data: heatData
+    	            },
+    	            itemStyle: {
+    	                normal: {
+    	                    borderColor:'rgba(100,149,237,0.6)',
+    	                    borderWidth:0.5,
+    	                    areaStyle: {
+    	                        color: '#1b1b1b'
+    	                    }
+    	                }
+    	            }
+    	        }
+    	    ]
+    	};
+    	                    
+    		var myChart = echarts.init(document.getElementById('main'));
+        	myChart.clear();
+        	myChart.showLoading({text: '正在努力的读取数据中...'});
+        	myChart.setOption(option, true);
+        	myChart.hideLoading();
+
+	});
+    function getWinWidth(minWidth){
+    	if(!minWidth)minWidth = 0;
+		var width = ($(document).width()-1);
+		return (minWidth > width) ? minWidth:width;
+    };
+    function getWinHeight(){
+    	return ($(document).height());
+    };
+</script>
+</head>
+<body style="padding:0">
+<div style="clear: both;">
+    <div id="main"></div>
+</div>
+</body>
+</html>

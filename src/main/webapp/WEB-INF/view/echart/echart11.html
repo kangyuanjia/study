@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="pragma" content="no-cache"> 
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
+<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+<title>EchartsMap1</title>
+<script type="text/javascript" src="resource/js/jquery.min.js"></script>
+<script type="text/javascript" src="resource/js/echart/echarts-all.js"></script>
+<script type="text/javascript">
+    $(function(){
+    	$("#main").css("width",getWinWidth());
+    	$("#main").css("height",getWinHeight());
+    	option = {
+    		    backgroundColor: '#1b1b1b',
+    		    color: ['gold','aqua','lime'],
+    		    title : {
+    		        text: '分拨中心发件量',
+    		        subtext:'数据库模拟数据',
+    		        x:'center',
+    		        textStyle : {
+    		            color: '#fff'
+    		        }
+    		    },
+    		    tooltip : {
+    		        trigger: 'item',
+    		        formatter: '{b}'
+    		    },
+    		    legend: {
+    		        orient: 'vertical',
+    		        x:'left',
+    		        data:['北京 Top10', '上海 Top10', '广州 Top10'],
+    		        selectedMode: 'single',
+    		        selected:{
+    		            '上海 Top10' : false,
+    		            '广州 Top10' : false
+    		        },
+    		        textStyle : {
+    		            color: '#fff'
+    		        }
+    		    },
+    		    toolbox: {},
+    		    dataRange: {
+    		        min : 70,
+    		        max : 100,
+    		        calculable : true,
+    		        color: ['#ff3333', 'orange', 'yellow','lime','aqua'],
+    		        textStyle:{
+    		            color:'#fff'
+    		        }
+    		    },
+    		    series : [
+    		        {
+    		            name: '全国',
+    		            type: 'map',
+    		            roam: true,
+    		            hoverable: false,
+    		            mapType: 'china',
+    		            itemStyle:{
+    		                normal:{
+    		                    borderColor:'rgba(100,149,237,1)',
+    		                    borderWidth:0.5,
+    		                    areaStyle:{
+    		                        color: '#1b1b1b'
+    		                    }
+    		                }
+    		            },
+    		            data:[],
+    		            markLine : {
+    		                smooth:true,
+    		                symbol: ['none', 'circle'],  
+    		                symbolSize : 1,
+    		                itemStyle : {
+    		                    normal: {
+    		                        color:'#fff',
+    		                        borderWidth:1,
+    		                        borderColor:'rgba(30,144,255,0.5)'
+    		                    }
+    		                },
+    		                    "data": []
+    		            },
+    		            "geoCoord": {}
+    		        },
+    		        {
+    		            name: '北京 Top10',
+    		            type: 'map',
+    		            mapType: 'china',
+    		            data:[],
+    		            markLine : {
+    		                smooth:true,
+    		                effect : {
+    		                    show: true,
+    		                    scaleSize: 1,
+    		                    period: 30,
+    		                    color: '#fff',
+    		                    shadowBlur: 10
+    		                },
+    		                itemStyle : {
+    		                    normal: {
+    		                        borderWidth:1,
+    		                        lineStyle: {
+    		                            type: 'solid',
+    		                            shadowBlur: 10
+    		                        }
+    		                    }
+    		                },
+    		                data : []
+    		            },
+    		            markPoint : {
+    		                symbol:'emptyCircle',
+    		                symbolSize : function (v){return 10 + v/10},
+    		                effect : {
+    		                    show: true,
+    		                    shadowBlur : 0
+    		                },
+    		                itemStyle:{
+    		                    normal:{
+    		                        label:{show:false}
+    		                    },
+    		                    emphasis: {
+    		                        label:{position:'top'}
+    		                    }
+    		                },
+    		                data : []
+    		            }
+    		        },
+    		        {
+    		            name: '上海 Top10',
+    		            type: 'map',
+    		            mapType: 'china',
+    		            data:[],
+    		            markLine : {
+    		                smooth:true,
+    		                effect : {
+    		                    show: true,
+    		                    scaleSize: 1,
+    		                    period: 30,
+    		                    color: '#fff',
+    		                    shadowBlur: 10
+    		                },
+    		                itemStyle : {
+    		                    normal: {
+    		                        borderWidth:1,
+    		                        lineStyle: {
+    		                            type: 'solid',
+    		                            shadowBlur: 10
+    		                        }
+    		                    }
+    		                },
+    		                data : []
+    		            },
+    		            markPoint : {
+    		                symbol:'emptyCircle',
+    		                symbolSize : function (v){return 10 + v/10},
+    		                effect : {
+    		                    show: true,
+    		                    shadowBlur : 0
+    		                },
+    		                itemStyle:{
+    		                    normal:{
+    		                        label:{show:false}
+    		                    },
+    		                    emphasis: {
+    		                        label:{position:'top'}
+    		                    }
+    		                },
+    		                data : []
+    		            }
+    		        },
+    		        {
+    		            name: '广州 Top10',
+    		            type: 'map',
+    		            mapType: 'china',
+    		            data:[],
+    		            markLine : {
+    		                smooth:true,
+    		                effect : {
+    		                    show: true,
+    		                    scaleSize: 1,
+    		                    period: 30,
+    		                    color: '#fff',
+    		                    shadowBlur: 10
+    		                },
+    		                itemStyle : {
+    		                    normal: {
+    		                        borderWidth:1,
+    		                        lineStyle: {
+    		                            type: 'solid',
+    		                            shadowBlur: 10
+    		                        }
+    		                    }
+    		                },
+    		                data : []
+    		            },
+    		            markPoint : {
+    		                symbol:'emptyCircle',
+    		                symbolSize : function (v){return 10 + v/10},
+    		                effect : {
+    		                    show: true,
+    		                    shadowBlur : 0
+    		                },
+    		                itemStyle:{
+    		                    normal:{
+    		                        label:{show:false}
+    		                    },
+    		                    emphasis: {
+    		                        label:{position:'top'}
+    		                    }
+    		                },
+    		                data : []
+    		            }
+    		        }
+    		    ]
+    		};
+    	var myChar = echarts.init(document.getElementById('main'));
+    	myChar.clear();
+    	myChar.showLoading({text: '正在努力的读取数据中...'});
+        $.getJSON('./echartMap/selectMap5.action', function (data) {
+            if (data.errorCode == 0) {
+            	// myChar.setOption(data.data, true);
+            	option.toolbox = data.data.toolbox;
+            	option.series[0].geoCoord = data.data.series[0].geoCoord;
+            	option.series[0].markLine.data = data.data.series[0].markLine.data;
+            	option.series[1].markLine.data = data.data.series[1].markLine.data;
+            	option.series[1].markPoint.data = data.data.series[1].markPoint.data;
+            	option.series[2].markLine.data = data.data.series[2].markLine.data;
+            	option.series[2].markPoint.data = data.data.series[2].markPoint.data;
+            	option.series[3].markLine.data = data.data.series[3].markLine.data;
+            	option.series[3].markPoint.data = data.data.series[3].markPoint.data;
+            	myChar.setOption(option, true);
+            	myChar.hideLoading();
+            } else {
+                alert('提示', data.msg);
+            }
+        });
+        	
+	});
+    function getWinWidth(minWidth){
+    	if(!minWidth)minWidth = 0;
+		var width = ($(document).width()-1);
+		return (minWidth > width) ? minWidth:width;
+    };
+    function getWinHeight(){
+    	return ($(document).height());
+    };
+</script>
+</head>
+<body style="padding:0">
+<div style="clear: both;">
+    <div id="main"></div>
+</div>
+</body>
+</html>

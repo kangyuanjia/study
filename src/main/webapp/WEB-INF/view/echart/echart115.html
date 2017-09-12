@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="pragma" content="no-cache"> 
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
+<title>EchartsMap</title>
+<script type="text/javascript" src="resource/js/jquery.min.js"></script>
+<script type="text/javascript" src="resource/js/echart/echarts-all.js"></script>
+<script type="text/javascript">
+    $(function(){
+    	$("#main").css("width",getWinWidth());
+    	$("#main").css("height",getWinHeight()/5*4);
+    	option = {
+    		    tooltip : {
+    		        trigger: 'item',
+    		        formatter: '{b}'
+    		    },
+    		    series : [
+    		        {
+    		            name: '中国',
+    		            type: 'map',
+    		            mapType: 'china',
+    		            selectedMode : 'multiple',
+    		            itemStyle:{
+    		                normal:{label:{show:true}},
+    		                emphasis:{label:{show:true}}
+    		            },
+    		            data:[
+    		                {name:'广东',selected:true},
+    		                {name:'陕西',selected:true}
+    		            ]
+    		        }
+    		    ]
+    		};
+    		
+    		var myChart = echarts.init(document.getElementById('main'));
+        	myChart.clear();
+        	myChart.showLoading({text: '正在努力的读取数据中...'});
+        	myChart.setOption(option, true);
+        	myChart.hideLoading();
+        	
+        	var ecConfig = echarts.config;
+        	myChart.on(ecConfig.EVENT.MAP_SELECTED, function (param){
+        	    var selected = param.selected;
+        	    var str = '当前选择： ';
+        	    for (var p in selected) {
+        	        if (selected[p]) {
+        	            str += p + ' ';
+        	        }
+        	    }
+        	    document.getElementById('wrong-message').innerHTML = str;
+        	})
+	});
+    function getWinWidth(minWidth){
+    	if(!minWidth)minWidth = 0;
+		var width = ($(document).width()-1);
+		return (minWidth > width) ? minWidth:width;
+    };
+    function getWinHeight(){
+    	return ($(document).height());
+    };
+</script>
+</head>
+<body style="padding:0">
+<div style="clear: both;">
+    <div id="main"></div>
+</div>
+<span id="wrong-message" style="color:red">当前选择： 陕西  广东 </span>
+</body>
+</html>

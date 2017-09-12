@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" >
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="pragma" content="no-cache"> 
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
+<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+<title>EchartsMap1</title>
+<script type="text/javascript" src="resource/js/jquery.min.js"></script>
+<script type="text/javascript" src="resource/js/echart/echarts-all.js"></script>
+<script type="text/javascript">
+    $(function(){
+    	$("#main").css("width",getWinWidth());
+    	$("#main").css("height",getWinHeight());
+    	//图表
+        var psLineChar = echarts.init(document.getElementById('main'));
+        psLineChar.clear();
+        psLineChar.showLoading({text: '正在努力的读取数据中...'});
+        $.getJSON('./echartMap/selectMap1.action', function (data) {
+            if (data.errorCode == 0) {
+                psLineChar.setOption(data.data, true);
+                psLineChar.hideLoading();
+            } else {
+                alert('提示', data.msg);
+            }
+        });
+
+	});
+    function getWinWidth(minWidth){
+    	if(!minWidth)minWidth = 0;
+		var width = ($(document).width()-1);
+		return (minWidth > width) ? minWidth:width;
+    };
+    function getWinHeight(){
+    	return ($(document).height());
+    };
+</script>
+</head>
+<body style="padding:0">
+<div style="clear: both;">
+    <div id="main"></div>
+</div>
+</body>
+</html>

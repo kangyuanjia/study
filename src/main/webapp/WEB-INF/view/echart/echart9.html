@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="pragma" content="no-cache"> 
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
+<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+<title>EchartsMap1</title>
+<script type="text/javascript" src="resource/js/jquery.min.js"></script>
+<script type="text/javascript" src="resource/js/echart/echarts-all.js"></script>
+<script type="text/javascript">
+    $(function(){
+    	$("#main").css("width",getWinWidth());
+    	$("#main").css("height",getWinHeight());
+    	//陕西地图
+    	option = {
+		    title : {
+		        text : '陕西10市人口密度 （2011）',
+		        subtext: '人口密度数据来自测试数据',
+		        sublink: 'http://www.baidu.com'
+		    },
+		    tooltip : {
+		        trigger: 'item',
+		        formatter: '{b}<br/>{c} (p / km2)'
+		    },
+		    toolbox: {
+		        show : true,
+		        orient : 'vertical',
+		        x: 'right',
+		        y: 'center',
+		        feature : {
+		            mark : {show: true},
+		            dataView : {show: true, readOnly: false},
+		            restore : {show: true},
+		            saveAsImage : {show: true}
+		        }
+		    },
+		    dataRange: {
+		        min: 800,
+		        max: 50000,
+		        text:['High','Low'],
+		        realtime: false,
+		        calculable : true,
+		        color: ['orangered','yellow','lightskyblue']
+		    },
+		    series : [
+		        {
+		            name: '陕西10市人口密度',
+		            type: 'map',
+		            mapType: '陕西', // 自定义扩展图表类型
+		            itemStyle:{
+		                normal:{label:{show:true}},
+		                emphasis:{label:{show:true}}
+		            },
+		            data:[
+		                {name: '榆林市', value: 10057.34},
+		                {name: '延安市', value: 15477.48},
+		                {name: '铜川市', value: 9686.1},
+		                {name: '渭南市', value: 16992.6},
+		                {name: '咸阳市', value: 25045.49},
+		                {name: '宝鸡市', value: 21689.64},
+		                {name: '西安市', value: 37659.78},
+		                {name: '商洛市', value: 15180.97},
+		                {name: '安康市', value: 10204.26},
+		                {name: '汉中市', value: 11900.9}
+		            ]
+		        }
+		    ]
+		};
+    	
+        var myChart = echarts.init(document.getElementById('main'));
+        myChart.setOption(option, true);     
+        	
+	});
+    function getWinWidth(minWidth){
+    	if(!minWidth)minWidth = 0;
+		var width = ($(document).width()-1);
+		return (minWidth > width) ? minWidth:width;
+    };
+    function getWinHeight(){
+    	return ($(document).height());
+    };
+</script>
+</head>
+<body style="padding:0">
+<div style="clear: both;">
+    <div id="main"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+table.auth_table td{
+	width: $$.fixWidth(0.5);
+	height: $$.fixHeight(0.4);
+}

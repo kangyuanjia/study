@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="pragma" content="no-cache"> 
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
+<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+<title>Echarts12</title>
+<script type="text/javascript" src="resource/js/jquery.min.js"></script>
+<script type="text/javascript" src="resource/js/echart/echarts-all.js"></script>
+<script type="text/javascript">
+    $(function(){
+    	$("#main").css("width",getWinWidth());
+    	$("#main").css("height",getWinHeight());
+    	option = {
+    		    title : {
+    		        text: '罗纳尔多 vs 舍普琴科',
+    		        subtext: '完全实况球员数据'
+    		    },
+    		    tooltip : {
+    		        trigger: 'axis'
+    		    },
+    		    legend: {
+    		        x : 'center',
+    		        data:['罗纳尔多','舍普琴科']
+    		    },
+    		    toolbox: {
+    		        show : true,
+    		        feature : {
+    		            mark : {show: true},
+    		            dataView : {show: true, readOnly: false},
+    		            restore : {show: true},
+    		            saveAsImage : {show: true}
+    		        }
+    		    },
+    		    calculable : true,
+    		    polar : [
+    		        {
+    		            indicator : [
+    		                {text : '进攻', max  : 100},
+    		                {text : '防守', max  : 100},
+    		                {text : '体能', max  : 100},
+    		                {text : '速度', max  : 100},
+    		                {text : '力量', max  : 100},
+    		                {text : '技巧', max  : 100}
+    		            ],
+    		            radius : 130
+    		        }
+    		    ],
+    		    series : [
+    		        {
+    		            name: '完全实况球员数据',
+    		            type: 'radar',
+    		            itemStyle: {
+    		                normal: {
+    		                    areaStyle: {
+    		                        type: 'default'
+    		                    }
+    		                }
+    		            },
+    		            data : [
+    		                {
+    		                    value : [97, 42, 88, 94, 90, 86],
+    		                    name : '舍普琴科'
+    		                },
+    		                {
+    		                    value : [97, 32, 74, 95, 88, 92],
+    		                    name : '罗纳尔多'
+    		                }
+    		            ]
+    		        }
+    		    ]
+    		};
+    		                    
+    	var myChar = echarts.init(document.getElementById('main'));
+    	myChar.clear();
+    	myChar.showLoading({text: '正在努力的读取数据中...'});
+    	myChar.setOption(option, true);
+    	myChar.hideLoading();
+    	
+	});
+    function getWinWidth(minWidth){
+    	if(!minWidth)minWidth = 0;
+		var width = ($(document).width()-1);
+		return (minWidth > width) ? minWidth:width;
+    };
+    function getWinHeight(){
+    	return ($(document).height());
+    };
+</script>
+</head>
+<body style="padding:0">
+<div style="clear: both;">
+    <div id="main"></div>
+</div>
+</body>
+</html>

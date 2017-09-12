@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="pragma" content="no-cache"> 
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
+<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+<title>Echarts12</title>
+<script type="text/javascript" src="resource/js/jquery.min.js"></script>
+<script type="text/javascript" src="resource/js/echart/echarts-all.js"></script>
+<script type="text/javascript">
+    $(function(){
+    	$("#main").css("width",getWinWidth());
+    	$("#main").css("height",getWinHeight());
+    	option = {
+    		    tooltip : {
+    		        trigger: 'item'
+    		    },
+    		    toolbox: {
+    		        show : true,
+    		        feature : {
+    		            mark : {show: true},
+    		            dataZoom : {show: true},
+    		            dataView : {show: true, readOnly: false},
+    		            restore : {show: true},
+    		            saveAsImage : {show: true}
+    		        }
+    		    },
+    		    dataRange: {
+    		        min: 0,
+    		        max: 100,
+    		        y: 'center',
+    		        text:['高','低'],           // 文本，默认为数值文本
+    		        color:['lightgreen','yellow'],
+    		        calculable : true
+    		    },
+    		    xAxis : [
+    		        {
+    		            type : 'value',
+    		            scale : true
+    		        }
+    		    ],
+    		    yAxis : [
+    		        {
+    		            type : 'value',
+    		            position:'right',
+    		            scale : true
+    		        }
+    		    ],
+    		    animation: false,
+    		    series : [
+    		        {
+    		            name:'scatter1',
+    		            type:'scatter',
+    		            symbolSize:5,
+    		            data: (function () {
+    		                var d = [];
+    		                var len = 500;
+    		                var value;
+    		                while (len--) {
+    		                    value = (Math.random()*100).toFixed(2) - 0;
+    		                    d.push([
+    		                        (Math.random()*value + value).toFixed(2) - 0,
+    		                        (Math.random()*value).toFixed(2) - 0,
+    		                        value
+    		                    ]);
+    		                }
+    		                return d;
+    		            })()
+    		        }
+    		    ]
+    		};
+    		                      
+    	var myChar = echarts.init(document.getElementById('main'));
+    	myChar.clear();
+    	myChar.showLoading({text: '正在努力的读取数据中...'});
+    	myChar.setOption(option, true);
+    	myChar.hideLoading();
+        	
+	});
+    function getWinWidth(minWidth){
+    	if(!minWidth)minWidth = 0;
+		var width = ($(document).width()-1);
+		return (minWidth > width) ? minWidth:width;
+    };
+    function getWinHeight(){
+    	return ($(document).height());
+    };
+</script>
+</head>
+<body style="padding:0">
+<div style="clear: both;">
+    <div id="main"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="pragma" content="no-cache"> 
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
+<title>EchartsMap</title>
+<script type="text/javascript" src="resource/js/jquery.min.js"></script>
+<script type="text/javascript" src="resource/js/echart/esl.js"></script>
+<script type="text/javascript">
+    $(function(){
+    	$("#main").css("width",getWinWidth());
+    	$("#main").css("height",getWinHeight());
+    	
+	});
+    function getWinWidth(minWidth){
+    	if(!minWidth)minWidth = 0;
+		var width = ($(document).width()-1);
+		return (minWidth > width) ? minWidth:width;
+    };
+    function getWinHeight(){
+    	return ($(document).height());
+    };
+</script>
+<script type="text/x-javascript" id="code-source">
+myChart.setOption({
+    title: {
+        text: 'Map with texture',
+        x: 'center',
+        textStyle: {
+            color: 'white'
+        }
+    },
+    tooltip: {
+        formatter: '{b}'
+    },
+    series: [{
+        type: 'map3d',
+        mapType: 'world',
+        baseLayer: {
+            backgroundColor: '',
+            backgroundImage: 'resource/img/echarts/jpg/earth.jpg',
+            quality: 'high',
+        },
+
+        surfaceLayers: [{
+            type: 'texture',
+            distance: 3,
+            image: 'resource/img/echarts/jpg/clouds.png'
+        }],
+
+        selectedMode: 'single',
+
+        itemStyle: {
+            normal: {
+                label: {
+                    show: true
+                },
+                borderWidth: 1,
+                borderColor: 'yellow',
+                areaStyle: {
+                    color: 'rgba(0, 0, 0, 0)'
+                }
+            }
+        },
+        data: [{}]
+    }]
+});
+</script>
+</head>
+<body style="padding:0">
+<div style="clear: both;">
+    <div id="chart"></div>
+</div>
+</body>
+</html>

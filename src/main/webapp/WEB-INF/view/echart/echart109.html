@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="pragma" content="no-cache"> 
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
+<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+<title>Echarts12</title>
+<script type="text/javascript" src="resource/js/jquery.min.js"></script>
+<script type="text/javascript" src="resource/js/echart/echarts-all.js"></script>
+<script type="text/javascript">
+    $(function(){
+    var curIndex = 0;
+    	$("#main").css("width",getWinWidth());
+    	$("#main").css("height",getWinHeight());
+    	dataRangeStyle = [
+			//0
+			 {
+			     min: 0,
+			     max: 2000,
+			     formatter : function(v, v2){
+			         if (v2 < 1000) { return '低于' + v2}
+			         else if (v > 1000) { return '高于' + v}
+			         else { return '中' }
+			     }
+			 },
+			//1
+			 {
+			     orient: 'horizontal', // 'vertical'
+			     min: 0,
+			     max: 2000,
+			     formatter : '{value} 到 {value2}'
+			 },
+			//2
+			 {
+			     text:['高','低'],           // 文本，默认为数值文本
+			     min: 0,
+			     max: 2000
+			 },
+			//3
+			 {
+			     orient: 'horizontal', // 'vertical'
+			     text:['高','低'],           // 文本，默认为数值文本
+			     min: 0,
+			     max: 2000
+			 },
+			//4
+			 {
+			     splitNumber: 0,
+			     min: 0,
+			     max: 2000
+			 },
+			//5
+			 {
+			     orient: 'horizontal', // 'vertical'
+			     splitNumber: 0,
+			     min: 0,
+			     max: 2000
+			 },
+			//6
+			 {
+			     splitNumber: 0,
+			     text:['高','低'],            // 文本，默认为数值文本
+			     min: 0,
+			     max: 2000
+			 },
+			//7
+			 {
+			     orient: 'horizontal', // 'vertical'
+			     splitNumber: 0,
+			     text:['高','低'],            // 文本，默认为数值文本
+			     min: 0,
+			     max: 2000
+			 },
+			//8
+			 {
+			     calculable : true,
+			     min: 0,
+			     max: 2000,
+			     formatter : function(v) {
+			         if (v > 1500) {return v + ' (高)'}
+			         else if (v < 500) {return v + ' (低)'}
+			         else {return v + ' (中)'};
+			     }
+			 },
+			//9
+			 {
+			     orient: 'horizontal',      // 'vertical'
+			     calculable : true,
+			     min: 0,
+			     max: 2000
+			 },
+			//10
+			 {
+			     color:['red','yellow'],    //颜色
+			     text:['高','低'],            // 文本，默认为数值文本
+			     calculable : true,
+			     min: 0,
+			     max: 2000
+			 },
+			//11
+			 {
+			     orient: 'horizontal',      // 'vertical'
+			     color:['red','yellow'],    //颜色
+			     text:['高','低'],            // 文本，默认为数值文本
+			     calculable : true,
+			     min: 0,
+			     max: 2000
+			 },
+			//12
+			 {
+			     orient: 'vertical',      // 'vertical'
+			     color: ['red', 'pink'],    //颜色
+			     splitList: [
+			         {start: 300000},
+			         {start: 900, end: 200000},
+			         {start: 310, end: 1000},
+			         {start: 200, end: 300},
+			         {start: 10, end: 200, label: '自定义label: 10 到 200'},
+			         {start: 5, end: 5},
+			         {end: 10, color: 'black'}
+			     ]
+			 }
+			]
+			var cur = curIndex++%dataRangeStyle.length;
+			option = {
+			 title:{
+			     text: '当前样式序号:' + cur,
+			     subtext: 'NO.' + cur
+			 },
+			 dataRange: dataRangeStyle[cur],
+			 series : [
+			     {
+			         name: '',
+			         type: 'map',
+			         data:[]
+			     }
+			 ]
+			};
+                 
+    		var myChart = echarts.init(document.getElementById('main'));
+        	myChart.clear();
+        	myChart.showLoading({text: '正在努力的读取数据中...'});
+        	myChart.setOption(option, true);
+        	myChart.hideLoading();
+
+	});
+    function getWinWidth(minWidth){
+    	if(!minWidth)minWidth = 0;
+		var width = ($(document).width()-1);
+		return (minWidth > width) ? minWidth:width;
+    };
+    function getWinHeight(){
+    	return ($(document).height());
+    };
+</script>
+</head>
+<body style="padding:0">
+<div style="clear: both;">
+    <div id="main"></div>
+</div>
+</body>
+</html>

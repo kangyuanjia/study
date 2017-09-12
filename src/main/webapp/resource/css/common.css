@@ -1,0 +1,66 @@
+*{
+	font-size:12px;
+}
+body {
+	height: 100%;
+	width: 100%
+	font-family: "Î¢ÈíÑÅºÚ",Arial,Helvetica,sans-serif;
+	padding: 0;
+	font-size: 12px;
+	margin: 0px auto auto auto;
+	color: #000;
+}
+
+.tab {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.tab table {
+	width: 100%;
+}
+
+.tab table td {
+	height: 30px;
+	padding-left: 5px;
+}
+
+.left {
+	text-align: left;
+}
+
+.right {
+	text-align: right;
+	width: 30%;
+}
+
+textarea {
+	resize: none;
+}
+
+a{
+	cursor:pointer;
+}
+
+.form {	
+	display: inline;
+}
+.form table {
+	padding-top: 30px;
+	width: 99%;
+	border: 0;
+}
+.form table tr {
+	height: 40px
+}
+.form table td {
+	padding-left:5px;
+	font-size: 14px;
+}
+.form table td input{
+	font-size: 14px;
+}
+
+.search-padding{
+	padding: 10px;
+}

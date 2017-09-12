@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="pragma" content="no-cache"> 
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
+<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+<title>Echarts12</title>
+<script type="text/javascript" src="resource/js/jquery.min.js"></script>
+<script type="text/javascript" src="resource/js/echart/echarts-all.js"></script>
+<script type="text/javascript" src="resource/js/echart/timelineOption.js"></script>
+<script type="text/javascript">
+    $(function(){
+    	$("#main").css("width",getWinWidth());
+    	$("#main").css("height",getWinHeight());
+    	option = {
+    		    title: {
+    		        x: 'center',
+    		        text: 'ECharts例子个数统计',
+    		        subtext: 'Rainbow bar example',
+    		        link: 'http://echarts.baidu.com/doc/example.html'
+    		    },
+    		    tooltip: {
+    		        trigger: 'item'
+    		    },
+    		    toolbox: {
+    		        show: true,
+    		        feature: {
+    		            dataView: {show: true, readOnly: false},
+    		            restore: {show: true},
+    		            saveAsImage: {show: true}
+    		        }
+    		    },
+    		    calculable: true,
+    		    grid: {
+    		        borderWidth: 0,
+    		        y: 80,
+    		        y2: 60
+    		    },
+    		    xAxis: [
+    		        {
+    		            type: 'category',
+    		            show: false,
+    		            data: ['折线图', '柱状图', '散点图', 'K线图', '饼状图', '雷达图', '和弦图', '力导向图', '地图', '仪表盘', '漏斗图']
+    		        }
+    		    ],
+    		    yAxis: [
+    		        {
+    		            type: 'value',
+    		            show: false
+    		        }
+    		    ],
+    		    series: [
+    		        {
+    		            name: 'ECharts例子个数统计',
+    		            type: 'bar',
+    		            itemStyle: {
+    		                normal: {
+    		                    color: function(params) {
+    		                        // build a color map as your need.
+    		                        var colorList = [
+    		                          '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+    		                           '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+    		                           '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+    		                        ];
+    		                        return colorList[params.dataIndex]
+    		                    },
+    		                    label: {
+    		                        show: true,
+    		                        position: 'top',
+    		                        formatter: '{b}\n{c}'
+    		                    }
+    		                }
+    		            },
+    		            data: [12,21,10,4,12,5,6,5,25,23,7],
+    		            markPoint: {
+    		                tooltip: {
+    		                    trigger: 'item',
+    		                    backgroundColor: 'rgba(0,0,0,0)',
+    		                    formatter: function(params){
+    		                        return '<img src="' 
+    		                                + params.data.symbol.replace('image://', '')
+    		                                + '"/>';
+    		                    }
+    		                },
+    		                data: [
+    		                    {xAxis:0, y: 350, name:'折线图', symbolSize:20, symbol: 'image://resource/img/echarts/ico/line.png'},
+    		                    {xAxis:1, y: 350, name:'柱状图', symbolSize:20, symbol: 'image://resource/img/echarts/ico/bar.png'},
+    		                    {xAxis:2, y: 350, name:'散点图', symbolSize:20, symbol: 'image://resource/img/echarts/ico/scatter.png'},
+    		                    {xAxis:3, y: 350, name:'K线图', symbolSize:20, symbol: 'image://resource/img/echarts/ico/k.png'},
+    		                    {xAxis:4, y: 350, name:'饼状图', symbolSize:20, symbol: 'image://resource/img/echarts/ico/pie.png'},
+    		                    {xAxis:5, y: 350, name:'雷达图', symbolSize:20, symbol: 'image://resource/img/echarts/ico/radar.png'},
+    		                    {xAxis:6, y: 350, name:'和弦图', symbolSize:20, symbol: 'image://resource/img/echarts/ico/chord.png'},
+    		                    {xAxis:7, y: 350, name:'力导向图', symbolSize:20, symbol: 'image://resource/img/echarts/ico/force.png'},
+    		                    {xAxis:8, y: 350, name:'地图', symbolSize:20, symbol: 'image://resource/img/echarts/ico/map.png'},
+    		                    {xAxis:9, y: 350, name:'仪表盘', symbolSize:20, symbol: 'image://resource/img/echarts/ico/gauge.png'},
+    		                    {xAxis:10, y: 350, name:'漏斗图', symbolSize:20, symbol: 'image://resource/img/echarts/ico/funnel.png'},
+    		                ]
+    		            }
+    		        }
+    		    ]
+    		};
+    		                                                                                                   
+    	var myChar = echarts.init(document.getElementById('main'));
+    	myChar.clear();
+    	myChar.showLoading({text: '正在努力的读取数据中...'});
+    	myChar.setOption(option, true);
+    	myChar.hideLoading();
+        	
+	});
+    function getWinWidth(minWidth){
+    	if(!minWidth)minWidth = 0;
+		var width = ($(document).width()-1);
+		return (minWidth > width) ? minWidth:width;
+    };
+    function getWinHeight(){
+    	return ($(document).height());
+    };
+</script>
+</head>
+<body style="padding:0">
+<div style="clear: both;">
+    <div id="main"></div>
+</div>
+</body>
+</html>

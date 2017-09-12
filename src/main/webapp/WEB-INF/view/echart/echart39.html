@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="pragma" content="no-cache"> 
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
+<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+<title>Echarts12</title>
+<script type="text/javascript" src="resource/js/jquery.min.js"></script>
+<script type="text/javascript" src="resource/js/echart/echarts-all.js"></script>
+<script type="text/javascript" src="resource/js/echart/timelineOption.js"></script>
+<script type="text/javascript">
+    $(function(){
+    	$("#main").css("width",getWinWidth());
+    	$("#main").css("height",getWinHeight());
+    	option = {
+    		    title : {
+    		        text : '时间坐标散点图',
+    		        subtext : 'dataZoom支持'
+    		    },
+    		    tooltip : {
+    		        trigger: 'axis',
+    		        axisPointer:{
+    		            show: true,
+    		            type : 'cross',
+    		            lineStyle: {
+    		                type : 'dashed',
+    		                width : 1
+    		            }
+    		        }
+    		    },
+    		    toolbox: {
+    		        show : true,
+    		        feature : {
+    		            mark : {show: true},
+    		            dataView : {show: true, readOnly: false},
+    		            restore : {show: true},
+    		            saveAsImage : {show: true}
+    		        }
+    		    },
+    		    dataZoom: {
+    		        show: true,
+    		        start : 30,
+    		        end : 70
+    		    },
+    		    legend : {
+    		        data : ['series1']
+    		    },
+    		    dataRange: {
+    		        min: 0,
+    		        max: 100,
+    		        orient: 'horizontal',
+    		        y: 30,
+    		        x: 'center',
+    		        //text:['高','低'],           // 文本，默认为数值文本
+    		        color:['lightgreen','orange'],
+    		        splitNumber: 5
+    		    },
+    		    grid: {
+    		        y2: 80
+    		    },
+    		    xAxis : [
+    		        {
+    		            type : 'time',
+    		            splitNumber:10
+    		        }
+    		    ],
+    		    yAxis : [
+    		        {
+    		            type : 'value'
+    		        }
+    		    ],
+    		    animation: false,
+    		    series : [
+    		        {
+    		            name:'series1',
+    		            type:'scatter',
+    		            tooltip : {
+    		                trigger: 'axis',
+    		                formatter : function (params) {
+    		                    var date = new Date(params.value[0]);
+    		                    return params.seriesName 
+    		                           + ' （'
+    		                           + date.getFullYear() + '-'
+    		                           + (date.getMonth() + 1) + '-'
+    		                           + date.getDate() + ' '
+    		                           + date.getHours() + ':'
+    		                           + date.getMinutes()
+    		                           +  '）<br/>'
+    		                           + params.value[1] + ', ' 
+    		                           + params.value[2];
+    		                },
+    		                axisPointer:{
+    		                    type : 'cross',
+    		                    lineStyle: {
+    		                        type : 'dashed',
+    		                        width : 1
+    		                    }
+    		                }
+    		            },
+    		            symbolSize: function (value){
+    		                return Math.round(value[2]/10);
+    		            },
+    		            data: (function () {
+    		                var d = [];
+    		                var len = 0;
+    		                var now = new Date();
+    		                var value;
+    		                while (len++ < 1500) {
+    		                    d.push([
+    		                        new Date(2014, 9, 1, 0, Math.round(Math.random()*10000)),
+    		                        (Math.random()*30).toFixed(2) - 0,
+    		                        (Math.random()*100).toFixed(2) - 0
+    		                    ]);
+    		                }
+    		                return d;
+    		            })()
+    		        }
+    		    ]
+    		};
+    		                    
+    	var myChar = echarts.init(document.getElementById('main'));
+    	myChar.clear();
+    	myChar.showLoading({text: '正在努力的读取数据中...'});
+    	myChar.setOption(option, true);
+    	myChar.hideLoading();
+        	
+	});
+    function getWinWidth(minWidth){
+    	if(!minWidth)minWidth = 0;
+		var width = ($(document).width()-1);
+		return (minWidth > width) ? minWidth:width;
+    };
+    function getWinHeight(){
+    	return ($(document).height());
+    };
+</script>
+</head>
+<body style="padding:0">
+<div style="clear: both;">
+    <div id="main"></div>
+</div>
+</body>
+</html>

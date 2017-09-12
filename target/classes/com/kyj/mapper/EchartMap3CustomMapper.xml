@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kyj.mapper.EchartMap3CustomMapper" >
+  <resultMap id="BaseResultMap" type="com.kyj.po.EchartMap3" >
+    <result column="start_city" property="startCity" jdbcType="VARCHAR" />
+    <result column="end_city" property="endCity" jdbcType="VARCHAR" />
+    <result column="shipment_total" property="shipmentTotal" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    start_city, end_city, shipment_total
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.kyj.po.EchartMap3Example" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from echart_map3
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.kyj.po.EchartMap3Example" >
+    delete from echart_map3
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kyj.po.EchartMap3" >
+    insert into echart_map3 (start_city, end_city, shipment_total
+      )
+    values (#{startCity,jdbcType=VARCHAR}, #{endCity,jdbcType=VARCHAR}, #{shipmentTotal,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kyj.po.EchartMap3" >
+    insert into echart_map3
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="startCity != null" >
+        start_city,
+      </if>
+      <if test="endCity != null" >
+        end_city,
+      </if>
+      <if test="shipmentTotal != null" >
+        shipment_total,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="startCity != null" >
+        #{startCity,jdbcType=VARCHAR},
+      </if>
+      <if test="endCity != null" >
+        #{endCity,jdbcType=VARCHAR},
+      </if>
+      <if test="shipmentTotal != null" >
+        #{shipmentTotal,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kyj.po.EchartMap3Example" resultType="java.lang.Integer" >
+    select count(*) from echart_map3
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update echart_map3
+    <set >
+      <if test="record.startCity != null" >
+        start_city = #{record.startCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endCity != null" >
+        end_city = #{record.endCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shipmentTotal != null" >
+        shipment_total = #{record.shipmentTotal,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update echart_map3
+    set start_city = #{record.startCity,jdbcType=VARCHAR},
+      end_city = #{record.endCity,jdbcType=VARCHAR},
+      shipment_total = #{record.shipmentTotal,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  
+  <select id="selectTOP10" resultMap="BaseResultMap" parameterType="com.kyj.po.EchartMap3Example" >
+   <![CDATA[ 
+	   SELECT
+			a.start_city,
+			a.end_city,
+			a.shipment_total
+		FROM
+			echart_map3 a
+		WHERE
+			(
+				SELECT
+					COUNT(1)
+				FROM
+					echart_map3 b
+				WHERE b.start_city = a.start_city
+				AND b.shipment_total >= a.shipment_total
+			) <= 10
+		ORDER BY 1,3 desc
+	  ]]>
+
+  </select>
+</mapper>

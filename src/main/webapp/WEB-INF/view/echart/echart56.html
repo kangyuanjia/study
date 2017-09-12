@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="pragma" content="no-cache"> 
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
+<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+<title>Echarts12</title>
+<script type="text/javascript" src="resource/js/jquery.min.js"></script>
+<script type="text/javascript" src="resource/js/echart/echarts-all.js"></script>
+<script type="text/javascript">
+    $(function(){
+    	$("#main").css("width",getWinWidth());
+    	$("#main").css("height",getWinHeight());
+    	option = {
+    		    color : (function (){
+    		        var zrColor = zrender.tool.color;
+    		        return zrColor.getStepColors('yellow', 'red', 28);
+    		    })(),
+    		    title : {
+    		        text: '浏览器占比变化',
+    		        subtext: '纯属虚构',
+    		        x:'right',
+    		        y:'bottom'
+    		    },
+    		    tooltip : {
+    		        trigger: 'item',
+    		        backgroundColor : 'rgba(0,0,250,0.2)'
+    		    },
+    		    legend: {
+    		       // orient : 'vertical',
+    		        //x : 'center',
+    		        data: function (){
+    		                var list = [];
+    		                for (var i = 1; i <=28; i++) {
+    		                    list.push(i + 2000);
+    		                }
+    		                return list;
+    		            }()
+    		    },
+    		    toolbox: {
+    		        show : true,
+    		        orient : 'vertical',
+    		        y:'center',
+    		        feature : {
+    		            mark : {show: true},
+    		            dataView : {show: true, readOnly: false},
+    		            restore : {show: true},
+    		            saveAsImage : {show: true}
+    		        }
+    		    },
+    		   polar : [
+    		       {
+    		           indicator : [
+    		               { text: 'IE8-', max: 400},
+    		               { text: 'IE9+', max: 400},
+    		               { text: 'Safari', max: 400},
+    		               { text: 'Firefox', max: 400},
+    		               { text: 'Chrome', max: 400}
+    		            ],
+    		            center : ['50%', 240],
+    		            radius : 150
+    		        }
+    		    ],
+    		    calculable : false,
+    		    series : (function (){
+    		        var series = [];
+    		        for (var i = 1; i <= 28; i++) {
+    		            series.push({
+    		                name:'浏览器（数据纯属虚构）',
+    		                type:'radar',
+    		                symbol:'none',
+    		                itemStyle: {
+    		                    normal: {
+    		                        lineStyle: {
+    		                          width:1
+    		                        }
+    		                    },
+    		                    emphasis : {
+    		                        areaStyle: {color:'rgba(0,250,0,0.3)'}
+    		                    }
+    		                },
+    		                data:[
+    		                  {
+    		                    value:[
+    		                        (40 - i) * 10,
+    		                        (38 - i) * 4 + 60,
+    		                        i * 5 + 10,
+    		                        i * 9,
+    		                        i * i /2
+    		                    ],
+    		                    name:i + 2000
+    		                  }
+    		                ]
+    		            })
+    		        }
+    		        return series;
+    		    })()
+    		};
+
+    		                    
+    	var myChar = echarts.init(document.getElementById('main'));
+    	myChar.clear();
+    	myChar.showLoading({text: '正在努力的读取数据中...'});
+    	myChar.setOption(option, true);
+    	myChar.hideLoading();
+    	
+	});
+    function getWinWidth(minWidth){
+    	if(!minWidth)minWidth = 0;
+		var width = ($(document).width()-1);
+		return (minWidth > width) ? minWidth:width;
+    };
+    function getWinHeight(){
+    	return ($(document).height());
+    };
+</script>
+</head>
+<body style="padding:0">
+<div style="clear: both;">
+    <div id="main"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="pragma" content="no-cache"> 
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
+<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+<title>EchartsMap1</title>
+<script type="text/javascript" src="resource/js/jquery.min.js"></script>
+<script type="text/javascript" src="resource/js/echart/echarts-all.js"></script>
+<script type="text/javascript">
+    $(function(){
+    	$("#main").css("width",getWinWidth());
+    	$("#main").css("height",getWinHeight());
+    	var seriesData = null;
+    	option = {
+    		    tooltip : {
+    		        trigger: 'item'
+    		    },
+    		    toolbox: {
+    		        show : true,
+    		        orient: 'vertical',
+    		        x:'right',
+    		        y:'center',
+    		        feature : {
+    		            mark : {show: true},
+    		            dataView : {show: true, readOnly: false}
+    		        }
+    		    },
+    		    series : [
+    		        {
+    		            tooltip: {
+    		                trigger: 'item',
+    		                formatter: '{b}'
+    		            },
+    		            name: '选择器',
+    		            type: 'map',
+    		            mapType: 'china',
+    		            mapLocation: {
+    		                x: 'left',
+    		                y: 'top',
+    		                width: '30%'
+    		            },
+    		            roam: true,
+    		            selectedMode : 'single',
+    		            itemStyle:{
+    		                //normal:{label:{show:true}},
+    		                emphasis:{label:{show:true}}
+    		            },
+    		            data:[
+    		                {name: '北京', selected:false},
+    		                {name: '天津', selected:false},
+    		                {name: '上海', selected:false},
+    		                {name: '重庆', selected:false},
+    		                {name: '河北', selected:false},
+    		                {name: '河南', selected:false},
+    		                {name: '云南', selected:false},
+    		                {name: '辽宁', selected:false},
+    		                {name: '黑龙江', selected:false},
+    		                {name: '湖南', selected:false},
+    		                {name: '安徽', selected:false},
+    		                {name: '山东', selected:false},
+    		                {name: '新疆', selected:false},
+    		                {name: '江苏', selected:false},
+    		                {name: '浙江', selected:false},
+    		                {name: '江西', selected:false},
+    		                {name: '湖北', selected:false},
+    		                {name: '广西', selected:false},
+    		                {name: '甘肃', selected:false},
+    		                {name: '山西', selected:false},
+    		                {name: '内蒙古', selected:false},
+    		                {name: '陕西', selected:false},
+    		                {name: '吉林', selected:false},
+    		                {name: '福建', selected:false},
+    		                {name: '贵州', selected:false},
+    		                {name: '广东', selected:false},
+    		                {name: '青海', selected:false},
+    		                {name: '西藏', selected:false},
+    		                {name: '四川', selected:false},
+    		                {name: '宁夏', selected:false},
+    		                {name: '海南', selected:false},
+    		                {name: '台湾', selected:false},
+    		                {name: '香港', selected:false},
+    		                {name: '澳门', selected:false}
+    		            ]
+    		        }
+    		    ],
+    		    animation: false
+    		};
+        var myChart = echarts.init(document.getElementById('main'));
+        myChart.clear();
+        myChart.showLoading({text: '正在努力的读取数据中...'});
+        myChart.setOption(option, true);
+    	$.getJSON('./echartMap/selectMap3.action', function (data) {
+            if (data.errorCode == 0) {
+            	seriesData = data.data;
+            	myChart.hideLoading();
+            } else {
+                alert('提示', data.msg);
+            }
+        });
+    	
+        
+        myChart.on(echarts.config.EVENT.MAP_SELECTED, function (param){
+            var selected = param.selected;
+            var selectedProvince;
+            var name;
+            for (var i = 0, l = option.series[0].data.length; i < l; i++) {
+                name = option.series[0].data[i].name;
+                option.series[0].data[i].selected = selected[name];
+                if (selected[name]) {
+                    selectedProvince = name;
+                }
+            }
+            if (typeof selectedProvince == 'undefined') {
+                option.series.splice(1);
+                option.legend = null;
+                option.dataRange = null;
+                myChart.setOption(option, true);
+                return;
+            }
+            option.series[1] = {
+        	        name: '票件量',
+        	        type: 'map',
+        	        mapType: selectedProvince,
+        	        itemStyle:{
+        	            normal:{label:{show:true}},
+        	            emphasis:{label:{show:true}}
+        	        },
+        	        mapLocation: {
+        	            x: '35%'
+        	        },
+        	        roam: true,
+        	        data:[]
+    	    };
+            option.series[1].data = seriesData.series[0].data;
+            //option.series[1] = seriesData;
+            option.legend = {
+        	        x:'right',
+        	        data:['票件量']
+        	    };
+       	    option.dataRange = {
+       	        orient: 'horizontal',
+       	        x: 'right',
+       	        min: 0,
+       	        max: 10000,
+       	        color:['orange','yellow'],
+       	        text:['高','低'],           // 文本，默认为数值文本
+       	        splitNumber:0
+       	    };
+    	    myChart.setOption(option, true);
+		});
+	});
+    function getWinWidth(minWidth){
+    	if(!minWidth)minWidth = 0;
+		var width = ($(document).width()-1);
+		return (minWidth > width) ? minWidth:width;
+    };
+    function getWinHeight(){
+    	return ($(document).height());
+    };
+</script>
+</head>
+<body style="padding:0">
+<div style="clear: both;">
+    <div id="main"></div>
+</div>
+</body>
+</html>

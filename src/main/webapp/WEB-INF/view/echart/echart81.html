@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="pragma" content="no-cache"> 
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
+<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+<title>Echarts12</title>
+<script type="text/javascript" src="resource/js/jquery.min.js"></script>
+<script type="text/javascript" src="resource/js/echart/echarts-all.js"></script>
+<script type="text/javascript">
+	var timeTicket;
+    $(function(){
+    	$("#main").css("width",800);
+    	$("#main").css("height",450);
+    	var heatData = [];
+    	for (var i = 0; i < 20; ++i) {
+    	    heatData.push([
+    	        400 + Math.random() * 300,
+    	        5 + Math.random() * 10,
+    	        Math.random()
+    	    ]);
+    	}
+    	for (var i = 0; i < 100; ++i) {
+    	    heatData.push([
+    	        100 + Math.random() * 600,
+    	        150 + Math.random() * 50,
+    	        Math.random()
+    	    ]);
+    	}
+    	for (var i = 0; i < 200; ++i) {
+    	    heatData.push([
+    	        Math.random() * 1000,
+    	        Math.random() * 800,
+    	        Math.random() * 0.5
+    	    ]);
+    	}
+    	option = {
+    	    title : {
+    	        text: '热力图'
+    	    },
+    	    series : [
+    	        {
+    	            type : 'heatmap',
+    	            data : heatData,
+    	            hoverable : false
+    	        }
+    	    ]
+    	};
+    	                    
+    		var myChart = echarts.init(document.getElementById('main'));
+        	myChart.clear();
+        	myChart.showLoading({text: '正在努力的读取数据中...'});
+        	myChart.setOption(option, true);
+        	myChart.hideLoading();
+
+	});
+    function getWinWidth(minWidth){
+    	if(!minWidth)minWidth = 0;
+		var width = ($(document).width()-1);
+		return (minWidth > width) ? minWidth:width;
+    };
+    function getWinHeight(){
+    	return ($(document).height());
+    };
+</script>
+<style type="text/css">
+    #baidu-img {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+</style>
+<style>
+    .main {
+	    border: 1px solid #e3e3e3;
+	    border-radius: 1px;
+	    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+	    overflow: hidden;
+	}
+</style>
+</head>
+<body style="padding:0">
+<div style="clear: both;">
+<img id="baidu-img" src="resource/img/echarts/img/heatmap_baidu.png" width="800px" height="450px" />
+    <div id="main" class="main"></div>
+</div>
+</body>
+</html>
